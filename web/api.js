@@ -1,11 +1,9 @@
-const express = require('express')
-const app = espress()
-const session = require('espress-session');
-const db = require('./db');
+const db = require('./db')
 const bodyParser = require('body-parser');
-const url = require("url");
+const url = require("url");//解析url为对象
 const md5 = require('md5-node');
-const querystring = require('querystring');//解析如‘a=1&b=2’为对象
+const querystring = require('querystring');//解析如‘a=1&b=2’为对象 这传入的应该是一个字典
+const session = require('espress-session');
 
 module.exports = function (app) {
 	app.use(bodyParser.json());
@@ -44,7 +42,7 @@ module.exports = function (app) {
 
 
 	// api 用户登录
-	app.post('...', function (req, res) {
+	app.get('...', function (req, res) {
 		//登录数据进行验证
 		var usernumber = req.body.user_number;
 		var userpassword = req.body.user_password
@@ -92,7 +90,7 @@ module.exports = function (app) {
 	})
 
 	//删除用户信息
-	app.post('...', function (req, res) {
+	app.get('...', function (req, res) {
 		db.User.findByIdAndRemove(
 		req.query._id,
 		function (err, doc) {
@@ -270,10 +268,7 @@ module.exports = function (app) {
 			return
 		}
 	}
-
-
 	 //api 
-
 
  )
 }
