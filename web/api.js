@@ -268,7 +268,58 @@ module.exports = function (app) {
 			return
 		}
 	}
-	 //api 
+
+ )
+
+    //api 买家想要or点赞功能
+	app.post('/hit_sell/rise', function (req, res) {
+	    console.log(req.body)
+	    if (req.body.flag) {
+	        db.Product.findByIdAndUpdate(
+			 req.body._id,
+			 { $set: { agrement: req.body.agrement } },
+			 { upsert: true },
+			 function (err, doc) {
+			     if (err) {
+			         console.log('修改错误：' + err);
+			         res.json({ code: 700, msg: '点赞失败' })
+			         return
+			     } else {
+			         res.json({ code: 200, msg: '点赞成功 感谢您的支持' })
+			     }
+			 }
+		   )
+	    } else {
+	        res.json({ code: 700, msg: '操作失败，请稍等！' })
+	        return
+	    }
+	}
+ )
+
+    //api 确定成交 ps:未确定流程
+  
+	app.post('/hit_sell/end', function (req, res) {
+	    console.log(req.body)
+	    if (req.body.flag) {
+	        db.Product.findByIdAndUpdate(
+			 req.body._id,
+			 { $set: { produc_state: false} },
+			 { upsert: true },
+			 function (err, doc) {
+			     if (err) {
+			         console.log('修改错误：' + err);
+			         res.json({ code: 700, msg: '交易失败 请稍后再试' })
+			         return
+			     } else {
+			         res.json({ code: 200, msg: '交易成功' })
+			     }
+			 }
+		   )
+	    } else {
+	        res.json({ code: 700, msg: '交易失败 请稍后再试' })
+	        return
+	    }
+	}
 
  )
 }
