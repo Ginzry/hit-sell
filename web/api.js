@@ -251,7 +251,7 @@ module.exports = function (app) {
 		if (!req.body.words) {
 			db.Product.findByIdAndUpdate(
 			 req.body._id,
-			 req.body,
+			 { $set: {reply:req.body.reply}},
 			 { upsert: true },
 			 function (err, doc) {
 			 	if (err) {
